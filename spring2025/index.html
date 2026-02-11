@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+    <title>Stanford CS336 | Language Modeling from Scratch</title>
+    <style>
+      #shuffle-container {
+        visibility: hidden;
+      }
+    </style>
+    <noscript><style>
+      #shuffle-container {
+        visibility: visible;
+      }
+    </style></noscript>
+    <script>
+      // Shuffle CAs
+      document.addEventListener("DOMContentLoaded", function() {
+        const container = document.getElementById("shuffle-container");
+        const children = Array.from(container.children);
+
+        // 50% chance to shuffle
+        if (Math.random() <= 0.5) {
+          container.insertBefore(children[4], children[3]);
+        }
+
+        // Now unhide them
+        container.style.visibility = "visible";
+      });
+    </script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <!-- Google fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <!-- <div id="unreleased-message" style="text-align: center;">
+      This site is under active construction, and contents are subject to change.
+      <br>
+      The Spring 2024 offering of the course is <a href="https://stanford-cs336.github.io/spring2024/index.html">archived here</a>.
+    </div> -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand brand" href="index.html">CS336</a>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="navbar-right">
+              <a href="index.html#coursework">Coursework</a>
+            </li>
+            <li class="navbar-right">
+              <a href="index.html#schedule">Schedule</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="header" style="text-align:center">
+      <a href="https://nlp.stanford.edu/">
+        <img src="images/stanford-nlp-logo-new.jpg" class="logo-left">
+      </a>
+      <a href="https://crfm.stanford.edu">
+        <img src="images/crfm-rgb.png" class="logo-right">
+      </a>
+      <h1>CS336: Language Modeling from Scratch</h1>
+      <h3>Stanford / Spring 2025</h3>
+    </div>
+    <!-- Intro -->
+    <div class="container sec" id="intro">
+      <div style="text-align: center;">
+        <font style="color: #8c1515; font-weight: bold; font-size: 1.2em"> The Spring 2024 offering of the course is <a href="https://stanford-cs336.github.io/spring2024/index.html">archived here</a>. </font>
+      </div>
+    </div>
+    <!-- Staff Info -->
+    <div class="container sec" id="people">
+      <!-- <div class="row"> -->
+      <div class="col" id="shuffle-container">
+        <h2>Course Staff</h2>
+        <div class="instructor">
+          <a href="https://thashim.github.io/">
+            <div class="instructorphoto">
+              <img src="images/thashim.jpeg">
+            </div>
+            <div>Tatsunori Hashimoto</div>
+          </a>
+          <div>Instructor</div>
+        </div>
+        <div class="instructor">
+          <a href="https://cs.stanford.edu/~pliang/">
+            <div class="instructorphoto">
+              <img src="images/pliang.jpeg">
+            </div>
+            <div>Percy Liang</div>
+          </a>
+          <div>Instructor</div>
+        </div>
+        <div class="instructor">
+          <a href="https://nband.github.io/">
+            <div class="instructorphoto">
+              <img src="images/nband.jpg">
+            </div>
+            <div>Neil Band</div>
+          </a>
+          <div>CA</div>
+        </div>
+        <div class="instructor">
+          <a href="https://marcel.roed.me">
+            <div class="instructorphoto">
+              <img src="images/mroed.jpg">
+            </div>
+            <div>Marcel Rød</div>
+          </a>
+          <div>CA</div>
+        </div>
+        <div class="instructor">
+          <a href="https://web.stanford.edu/~rohithk/">
+            <div class="instructorphoto">
+              <img src="images/rohithk.jpg">
+            </div>
+            <div>Rohith Kuditipudi</div>
+          </a>
+          <div>CA</div>
+        </div>
+      </div>
+    </div>
+    <!-- Logistics -->
+    <div class="sechighlight">
+      <div class="container sec" id="logistics">
+        <h2>Logistics</h2>
+        <ul>
+          <li>
+            <b>Lectures:</b> Tuesday/Thursday 3:00-4:20pm in <b><a href="https://campus-map.stanford.edu/?srch=NVIDIA+Auditorium">NVIDIA Auditorium</a></b>
+          </li>
+          <li>
+            <b>Office hours:</b>
+              <ul>
+                <li>Tatsu Hashimoto (Gates 364): Fridays at 3-4pm</li>
+                <li>Percy Liang (Gates 350): Fridays at 11am-12pm</li>
+                <li>Marcel Rød (Gates 415): Mondays 11am-12pm, Wednesdays 11am-12pm</li>
+                <li>Neil Band (Gates 358): Mondays 4-5pm, Tuesdays 5-6pm</li>
+                <li>Rohith Kuditipudi (Gates 358): Mondays 10-11am, Wednesdays 10-11am</li>
+              </ul>
+          </li>
+          <li>
+            <b>Contact</b>:
+            Students should ask <i>all</i> course-related questions in public Slack channels.
+            All announcements will also be made in Slack.
+            For personal matters,
+            email <a href="mailto:cs336-spr2425-staff@lists.stanford.edu">
+              <i>cs336-spr2425-staff@lists.stanford.edu</i></a>.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+  <!-- Content -->
+  <div class="container sec" id="content">
+    <h2>Content</h2>
+    <h3>What is this course about?</h3>
+    <p> Language models serve as the cornerstone of modern natural language processing (NLP) applications and open up a new paradigm of having a single general purpose system address a range of downstream tasks. As the field of artificial intelligence (AI), machine learning (ML), and NLP continues to grow, possessing a deep understanding of language models becomes essential for scientists and engineers alike. This course is designed to provide students with a comprehensive understanding of language models by walking them through the entire process of developing their own. Drawing inspiration from operating systems courses that create an entire operating system from scratch, we will lead students through every aspect of language model creation, including data collection and cleaning for pre-training, transformer model construction, model training, and evaluation before deployment. </p>
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>
+        <b>Proficiency in Python</b>
+        <p>The majority of class assignments will be in Python.
+        Unlike most other AI classes,
+        students will be given minimal scaffolding.
+        The amount of code you will write will be at least an order of magnitude
+        greater than for other classes.
+        Therefore, being proficient in Python and software engineering is paramount.</p>
+      </li>
+      <li>
+        <b>Experience with deep learning and systems optimization</b>
+        <p> A significant part of the course will involve making neural language models run quickly and efficiently on GPUs across multiple machines. We expect students to be able to have a strong familiarity with PyTorch and know basic systems concepts like the memory hierarchy.
+      <li>
+        <b>College Calculus, Linear Algebra</b> (e.g. MATH 51, CME 100) <p>You should be comfortable understanding matrix/vector notation and operations.</p>
+      </li>
+      <li>
+        <b>Basic Probability and Statistics</b> (e.g. CS 109 or equivalent) <p>You should know the basics of probabilities, Gaussian distributions, mean, standard deviation, etc.</p>
+      </li>
+      <li>
+        <b>Machine Learning</b> (e.g. CS221, CS229, CS230, CS124, CS224N) <p>You should be comfortable with the basics of machine learning and deep learning.</p>
+      </li>
+    </ul>
+    <p>
+    Note that this is a 5-unit class.
+    This is a very implementation-heavy class, so please allocate enough time for it.
+    </p>
+  </div>
+  <!-- Coursework -->
+  <!-- Note the margin-top:-20px and the <br> serve to make the #coursework hyperlink display correctly (with the h2 header visible) -->
+  <div class="sechighlight">
+    <div class="container sec" id="coursework" style="margin-top:-20px">
+      <br>
+      <h2>Coursework</h2>
+      <h3>Assignments</h3>
+      <ul>
+        <li>
+          <a href="https://github.com/stanford-cs336/assignment1-basics/tree/main"><b>Assignment 1</b>: Basics</a> 
+          [<a href="https://github.com/stanford-cs336/assignment1-basics-leaderboard/tree/master">leaderboard</a>]
+        </li>
+        <ul>
+          <li>Implement all of the components (tokenizer, model architecture, optimizer) necessary to train a standard Transformer language model. </li>
+          <li> Train a minimal language model. </li>
+        </ul>
+	      <li><a href="https://github.com/stanford-cs336/assignment2-systems/tree/main"><b>Assignment 2</b>: Systems</a>
+        [<a href="https://github.com/stanford-cs336/assignment2-systems-leaderboard/tree/main">leaderboard</a>]
+        </li>
+	      <ul>
+          <li>Profile and benchmark the model and layers from Assignment 1 using advanced tools, optimize Attention with your own Triton implementation of FlashAttention2.</li>
+          <li>Build a memory-efficient, distributed version of the Assignment 1 model training code.</li>
+        </ul>
+        <li><a href="https://github.com/stanford-cs336/assignment3-scaling/tree/main"><b>Assignment 3</b>: Scaling</a></li>
+        <!-- [<a href="https://github.com/stanford-cs336/assignment3-scaling-leaderboard/tree/main">leaderboard</a>] -->
+        <ul>
+          <!-- <li>Study and understand model initializations and weight + activation dynamics.</li> -->
+          <li>Understand the function of each component of the Transformer.</li>
+          <li>Query a training API to fit a scaling law to project model scaling.</li>
+        </ul>
+        <li>
+          <a href="https://github.com/stanford-cs336/assignment4-data/tree/main"><b>Assignment 4</b>: Data</a>
+          [<a href="https://github.com/stanford-cs336/assignment4-data-leaderboard">leaderboard</a>]
+        </li>
+        <ul>
+          <li>Convert raw Common Crawl dumps into usable pretraining data. </li>
+          <li> Perform filtering and deduplication to improve model performance. </li>
+        </ul>
+        <li><a href="https://github.com/stanford-cs336/assignment5-alignment"><b>Assignment 5</b>: Alignment and Reasoning RL</li></a>
+        <ul>
+          <li> Apply supervised finetuning and reinforcement learning to train LMs to reason when solving math problems. </li>
+          <li>
+            <b><a href="https://github.com/stanford-cs336/assignment5-alignment/blob/main/cs336_spring2025_assignment5_supplement_safety_rlhf.pdf">Optional Part 2</a></b>: implement and apply safety alignment methods such as DPO.
+          </li>
+        </ul>
+      </ul>
+      All (currently tentative) deadlines are listed in the <a href="#schedule">schedule</a>.
+
+      <h3>GPU compute for self-study</h3>
+      <p>
+        If you are following along at home, you can access GPU compute from a cloud provider to complete the assignments.
+        <br>
+        Here are a few options (prices for a <strong>single H100 80GB GPU</strong> on June 6, 2025):
+      </p> 
+      <ul>
+        <li> <a href="https://docs.runpod.io/get-started">RunPod</a>: <strong>$1.99-$2.99/hour</strong> (<a href="https://runpod.io/pricing">RunPod Pricing</a>) </li>
+        <li> <a href="https://docs.lambda.ai/public-cloud/on-demand/creating-managing-instances/#launching-instances">Lambda Labs</a>: <strong>$2.49–$3.29/hour</strong> (<a href="https://lambda.ai/pricing">Lambda Labs Pricing</a>) </li>
+        <li> <a href="https://docs.digitalocean.com/products/paperspace/deployments/getting-started/quickstart/">Paperspace</a>: <strong>$2.24/hour</strong> (<a href="https://www.paperspace.com/pricing">Paperspace Pricing</a>) </li>
+        <li> <a href="https://www.together.ai/blog/instant-gpu-clusters">Together</a>: <strong>$2.85/hour</strong>, minimum 8 GPUs (<a href="https://www.together.ai/blog/instant-gpu-clusters">Together Instant GPU Cluster Pricing</a>) </li>
+      </ul>
+      For convenience and to save money, we recommend debugging correctness of your implementation on CPU first and then using GPU(s) (with the count recommended in the assignments) for completing training runs (A1, A4, A5) or benchmarking GPU operations (A2).
+
+      <h3>Honor code</h3>
+        Like all other classes at Stanford, we take the student <a href="https://ed.stanford.edu/academics/masters-handbook/honor-code">Honor Code</a> seriously.
+        Please respect the following policies:
+        <ul>
+          <li>
+            <b>Collaboration</b>: Study groups are allowed, but students must understand and complete their own assignments, and hand in one assignment per student.
+            If you worked in a group, please put the names of the members of your study group at the top of your assignment.
+            Please ask if you have any questions about the collaboration policy.
+          </li>
+          <li>
+            <b>AI tools</b>: Prompting LLMs such as ChatGPT is permitted for low-level programming questions or high-level conceptual questions about language models, but using it directly to solve the problem is prohibited.
+
+            We strongly encourage you to disable AI autocomplete (e.g., Cursor Tab, GitHub CoPilot) in your IDE when completing assignments (though non-AI autocomplete, e.g., autocompleting function names is totally fine). We have found that AI autocomplete makes it much harder to engage deeply with the content.
+          </li>
+          <li>
+            <b>Existing code</b>: Implementations for many of the things you will implement exist online.
+            The handouts we'll give will be self-contained, so that you will not need to consult third-party code for producing your own implementation.
+	    Thus, you should not look at any existing code unless when otherwise specified in the handouts.
+          </li>
+        </ul>
+
+      <h3>Submitting coursework</h3>
+      <ul>
+        <li>All coursework are submitted via Gradescope by the deadline. Do not submit your coursework via email.</li>
+        <li>If anything goes wrong, please ask a question in Slack or contact a course assistant.</li>
+        <li>You can submit as many times as you'd like until the deadline: we will only grade the last submission.</li>
+        <li>Partial work is better than not submitting any work.</li>
+      </ul>
+      <h3>Late days</h3>
+      <ul>
+        <li>Each student has <b>6 late days to use</b>. A late day extends the deadline by 24 hours. </li>
+	<li>You can use up to 3 late days per assignment.</li>
+      </ul>
+      <h3>Regrade requests</h3>
+      <p>If you believe that the course staff made an objective error in grading, you may submit a regrade request on Gradescope within 3 days after the grades are released.</p>
+      <h3>Sponsor</h3>
+      <p>We would like to thank <a href="https://together.ai">Together AI</a> for sponsoring the compute for this class.</p>
+    </div>
+  </div>
+  <!-- Schedule -->
+  <!-- Note the margin-top:-20px and the <br> serve to make the #schedule hyperlink display correctly (with the h2 header visible) -->
+  <div class="container sec" id="schedule" style="margin-top:-20px">
+    <br>
+    <h2>Schedule</h2>
+    <table class="table">
+      <colgroup>
+        <col style="width:5%">
+        <col style="width:15%">
+        <col style="width:35%">
+        <col style="width:15%">
+        <col style="width:20%">
+      </colgroup>
+      <thead>
+        <tr class="active">
+          <th>#</th>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Course Materials</th>
+          <th>Deadlines</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> 1 </td>
+          <td> Tues April 1 </td>
+          <td> Overview, tokenization (Percy) </td>
+          <td> <a href="https://stanford-cs336.github.io/spring2025-lectures/?trace=var/traces/lecture_01.json">lecture_01.py</a> </td>
+          <td>
+            Assignment 1 <b><font color="green">out</font></b>
+            <br>
+            [<a href="https://github.com/stanford-cs336/assignment1-basics/tree/main">code</a>]
+            <br>
+            [<a href="https://github.com/stanford-cs336/assignment1-basics/blob/main/cs336_spring2025_assignment1_basics.pdf">preview</a>]
+            <br>
+            [<a href="https://github.com/stanford-cs336/spring2025-assignment1-basics-leaderboard/tree/master">leaderboard</a>]
+          </td>
+        </tr>
+        <tr>
+          <td> 2 </td>
+          <td>Thurs April 3</td>
+          <td> PyTorch, resource accounting (Percy) </td>
+          <td> <a href="https://stanford-cs336.github.io/spring2025-lectures/?trace=var/traces/lecture_02.json">lecture_02.py</a> </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td> 3 </td>
+          <td> Tues April 8 </td>
+          <td> Architectures, hyperparameters (Tatsu) </td>
+          <td> <a href="https://github.com/stanford-cs336/spring2025-lectures/blob/e9cb2488fdb53ea37f0e38924ec3a1701925cef3/nonexecutable/2025%20Lecture%203%20-%20architecture.pdf">lecture 3.pdf</a></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td> 4 </td>
+          <td>Thurs April 10</td>
+          <td> Mixture of experts (Tatsu) </td>
+          <td> <a href="https://github.com/stanford-cs336/spring2025-lectures/blob/98455ec198c9a88ec1ab2b1c4058662431b54ce3/nonexecutable/2025%20Lecture%204%20-%20MoEs.pdf">lecture 4.pdf</a></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td> 5 </td>
+          <td>Tues April 15</td>
+          <td>GPUs (Tatsu)</td>
+          <td> <a href="https://github.com/stanford-cs336/spring2025-lectures/blob/main/nonexecutable/2025%20Lecture%205%20-%20GPUs.pdf">lecture 5.pdf</a></td>
+          <td>Assignment 1 <b><font color="red">due</font></b>
+          <br/>
+          Assignment 2 <b><font color="green">out</font></b>
+          <br>
+          [<a href="https://github.com/stanford-cs336/assignment2-systems/tree/main">code</a>]
+          <br>
+          [<a href="https://github.com/stanford-cs336/assignment2-systems/blob/main/cs336_spring2025_assignment2_systems.pdf">preview</a>]
+          <br>
+          [<a href="https://github.com/stanford-cs336/assignment2-systems-leaderboard/tree/main">leaderboard</a>]
+          </td>
+        </tr>
+        <tr>
+          <td> 6 </td>
+          <td>Thurs April 17</td>
+          <td>Kernels, Triton (Tatsu)</td>
+          <td> <a href="https://stanford-cs336.github.io/spring2025-lectures/?trace=var/traces/lecture_06.json">lecture_06.py</a> </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td> 7 </td>
+          <td>Tues April 22</td>
+          <td>Parallelism (Tatsu)</td>
+          <td> <a href="https://github.com/stanford-cs336/spring2025-lectures/blob/4eff81bee0a853217209e163936b264f03572b66/nonexecutable/2025%20Lecture%207%20-%20Parallelism%20basics.pdf">lecture 7.pdf</a></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td> 8 </td>
+          <td>Thurs April 24</td>
+          <td>Parallelism (Percy)</td>
+          <td> <a href="https://stanford-cs336.github.io/spring2025-lectures/?trace=var/traces/lecture_08.json">lecture_08.py</a> </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td> 9 </td>
+          <td>Tues April 29</td>
+          <td>Scaling laws (Tatsu)</td>
+          <td> <a href="https://github.com/stanford-cs336/spring2025-lectures/blob/fb79eb018fa047bf99c4c785dcbbd62fff361e54/nonexecutable/2025%20Lecture%209%20-%20Scaling%20laws%20basics.pdf">lecture 9.pdf</a></td>
+          <td>
+            <!-- Assignment 2 <b><font color="red">due</font></b> -->
+            <!-- <br/> -->
+            Assignment 3 <b><font color="green">out</font></b>
+            <br>
+            [<a href="https://github.com/stanford-cs336/assignment3-scaling/tree/main">code</a>]
+            <br>
+            [<a href="https://github.com/stanford-cs336/assignment3-scaling/blob/main/cs336_spring2025_assignment3_scaling.pdf">preview</a>]
+          </td>
+        </tr>
+        <tr>
+          <td>  </td>
+          <td>Wed April 30</td>
+          <td></td>
+          <!-- <td> <a href="https://github.com/stanford-cs336/spring2025-lectures/blob/main/nonexecutable/Lecture%209%20-%20Scaling%20laws%20basics.pdf">lecture 9.pdf</a></td> -->
+          <td></td>
+          <td>
+            Assignment 2 <b><font color="red">due</font></b>
+          </td>
+        </tr>
+        <tr>
+          <td> 10 </td>
+          <td>Thurs May 1</td>
+          <td>Inference (Percy)</td>
+          <td> <a href="https://stanford-cs336.github.io/spring2025-lectures/?trace=var/traces/lecture_10.json">lecture_10.py</a> </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td> 11 </td>
+          <td>Tues May 6</td>
+          <td>Scaling laws (Tatsu)</td>
+          <td> <a href="https://github.com/stanford-cs336/spring2025-lectures/blob/00191bba00d6d64621dc46ccaed9122681413a24/nonexecutable/2025%20Lecture%2011%20-%20Scaling%20details.pdf">lecture 11.pdf</a> </td>
+          <td>
+            Assignment 3 <b><font color="red">due</font></b>
+            <br/>
+            Assignment 4 <b><font color="green">out</font></b>
+            <br>
+            [<a href="https://github.com/stanford-cs336/assignment4-data/tree/main">code</a>]
+            <br>
+            [<a href="https://github.com/stanford-cs336/assignment4-data/blob/main/cs336_spring2025_assignment4_data.pdf">preview</a>]
+            <br>
+            [<a href="https://github.com/stanford-cs336/assignment4-data-leaderboard">leaderboard</a>]
+          </td>
+        </tr>
+        <tr>
+          <td> 12 </td>
+          <td>Thurs May 8</td>
+          <td>Evaluation (Percy)</td>
+          <td> <a href="https://stanford-cs336.github.io/spring2025-lectures/?trace=var/traces/lecture_12.json">lecture_12.py</a> </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td> 13 </td>
+          <td>Tues May 13</td>
+          <td>Data (Percy)</td>
+          <td> <a href="https://stanford-cs336.github.io/spring2025-lectures/?trace=var/traces/lecture_13.json">lecture_13.py</a> </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td> 14 </td>
+          <td>Thurs May 15</td>
+          <td>Data (Percy)</td>
+          <td> <a href="https://stanford-cs336.github.io/spring2025-lectures/?trace=var/traces/lecture_14.json">lecture_14.py</a> </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td> 15 </td>
+          <td>Tues May 20</td>
+          <td>Alignment - SFT/RLHF (Tatsu)</td>
+          <td> <a href="https://github.com/stanford-cs336/spring2025-lectures/blob/61eddac004df975466cff0329b615f2d24230069/nonexecutable/2025%20Lecture%2015%20-%20RLHF%20Alignment.pdf">lecture 15.pdf</a></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td> 16 </td>
+          <td>Thurs May 22</td>
+          <td>Alignment - RL (Tatsu)</td>
+          <td> <a href="https://github.com/stanford-cs336/spring2025-lectures/blob/e94e33f433985e57036b25215dff2a4292e67a4f/nonexecutable/2025%20Lecture%2016%20-%20RLVR.pdf">lecture 16.pdf</a></td>
+          <!-- <td> <a href="https://github.com/stanford-cs336/spring2025-lectures/blob/main/nonexecutable/Lecture%2016%20-%20Alignment%20by%20RLHF.pdf">lecture 16.pdf</a></td> -->
+          <td></td>
+        </tr>
+        <tr>
+          <td>  </td>
+          <td>Fri May 23</td>
+          <td></td>
+          <td></td>
+          <td>
+            Assignment 4 <b><font color="red">due</font></b>
+            <br>
+            Assignment 5 <b><font color="green">out</font></b>
+            <br>
+            [<a href="https://github.com/stanford-cs336/assignment5-alignment">code</a>]
+            <br>
+            [<a href="https://github.com/stanford-cs336/assignment5-alignment/blob/master/cs336_spring2025_assignment5_alignment.pdf">preview</a>]
+          </td>
+        </tr>
+        <tr>
+          <td> 17 </td>
+          <td>Tues May 27</td>
+          <td>Alignment - RL (Percy)</td>
+          <td> <a href="https://stanford-cs336.github.io/spring2025-lectures/?trace=var/traces/lecture_17.json">lecture_17.py</a> </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td> 18 </td>
+          <td>Thurs May 29</td>
+          <td>Guest Lecture by <a href="https://justinlin610.github.io/">Junyang Lin</a></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td> 19 </td>
+          <td>Tues June 3</td>
+          <td>Guest lecture by <a href="https://ai.meta.com/people/209431298931133/mike-lewis/">Mike Lewis</a></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>  </td>
+          <td>Fri June 6</td>
+          <td></td>
+          <td></td>
+          <td>
+            Assignment 5 <b><font color="red">due</font></b>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- jQuery and Bootstrap -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  
+  <!-- Add whitespace to ensure schedule is visible when banner is active -->
+  <!-- <div style="height: 200px;"></div> -->
+  </body>
+</html>
