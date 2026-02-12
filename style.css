@@ -32,6 +32,12 @@ h3 {
   font-weight: bold;
 }
 
+#header h3 > span {
+  display: block;
+  margin-left: 0 !important;
+  margin-top: 4px;
+}
+
 .lhead {
   font-weight: normal;
   margin-top: 5px;
@@ -268,12 +274,6 @@ h3 {
   }
 
   #header h3 {
-    margin-top: 4px;
-  }
-
-  #header h3 > span {
-    display: block;
-    margin-left: 0 !important;
     margin-top: 4px;
   }
 
