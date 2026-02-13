@@ -67,12 +67,14 @@ h3 {
 }
 
 .logo-left {
+  width: auto;
   height:60px;
   float: left;
   margin-left: 50px;
 }
 
 .logo-right {
+  width: auto;
   height:60px;
   float: right;
   margin-right: 50px;
