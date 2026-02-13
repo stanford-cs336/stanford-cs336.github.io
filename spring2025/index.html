@@ -109,7 +109,7 @@
       <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand brand" href="index.html">CS336</a>
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation menu">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -127,6 +127,7 @@
         </div>
       </div>
     </nav>
+    <main id="main-content">
     <div id="header" style="text-align:center">
       <a href="https://nlp.stanford.edu/">
         <picture>
@@ -153,7 +154,7 @@
         </picture>
       </a>
       <h1>CS336: Language Modeling from Scratch</h1>
-      <h3>Stanford / Spring 2025</h3>
+      <p class="term-line">Stanford / Spring 2025</p>
     </div>
     <!-- Intro -->
     <div class="container sec" id="intro">
@@ -281,7 +282,8 @@
       </li>
       <li>
         <b>Experience with deep learning and systems optimization</b>
-        <p> A significant part of the course will involve making neural language models run quickly and efficiently on GPUs across multiple machines. We expect students to be able to have a strong familiarity with PyTorch and know basic systems concepts like the memory hierarchy.
+        <p>A significant part of the course will involve making neural language models run quickly and efficiently on GPUs across multiple machines. We expect students to be able to have a strong familiarity with PyTorch and know basic systems concepts like the memory hierarchy.</p>
+      </li>
       <li>
         <b>College Calculus, Linear Algebra</b> (e.g. MATH 51, CME 100) <p>You should be comfortable understanding matrix/vector notation and operations.</p>
       </li>
@@ -308,40 +310,45 @@
         <li>
           <a href="https://github.com/stanford-cs336/assignment1-basics/tree/main"><b>Assignment 1</b>: Basics</a> 
           [<a href="https://github.com/stanford-cs336/assignment1-basics-leaderboard/tree/master">leaderboard</a>]
+          <ul>
+            <li>Implement all of the components (tokenizer, model architecture, optimizer) necessary to train a standard Transformer language model.</li>
+            <li>Train a minimal language model.</li>
+          </ul>
         </li>
-        <ul>
-          <li>Implement all of the components (tokenizer, model architecture, optimizer) necessary to train a standard Transformer language model. </li>
-          <li> Train a minimal language model. </li>
-        </ul>
-	      <li><a href="https://github.com/stanford-cs336/assignment2-systems/tree/main"><b>Assignment 2</b>: Systems</a>
-        [<a href="https://github.com/stanford-cs336/assignment2-systems-leaderboard/tree/main">leaderboard</a>]
+        <li>
+          <a href="https://github.com/stanford-cs336/assignment2-systems/tree/main"><b>Assignment 2</b>: Systems</a>
+          [<a href="https://github.com/stanford-cs336/assignment2-systems-leaderboard/tree/main">leaderboard</a>]
+          <ul>
+            <li>Profile and benchmark the model and layers from Assignment 1 using advanced tools, optimize Attention with your own Triton implementation of FlashAttention2.</li>
+            <li>Build a memory-efficient, distributed version of the Assignment 1 model training code.</li>
+          </ul>
         </li>
-	      <ul>
-          <li>Profile and benchmark the model and layers from Assignment 1 using advanced tools, optimize Attention with your own Triton implementation of FlashAttention2.</li>
-          <li>Build a memory-efficient, distributed version of the Assignment 1 model training code.</li>
-        </ul>
-        <li><a href="https://github.com/stanford-cs336/assignment3-scaling/tree/main"><b>Assignment 3</b>: Scaling</a></li>
-        <!-- [<a href="https://github.com/stanford-cs336/assignment3-scaling-leaderboard/tree/main">leaderboard</a>] -->
-        <ul>
-          <!-- <li>Study and understand model initializations and weight + activation dynamics.</li> -->
-          <li>Understand the function of each component of the Transformer.</li>
-          <li>Query a training API to fit a scaling law to project model scaling.</li>
-        </ul>
+        <li>
+          <a href="https://github.com/stanford-cs336/assignment3-scaling/tree/main"><b>Assignment 3</b>: Scaling</a>
+          <!-- [<a href="https://github.com/stanford-cs336/assignment3-scaling-leaderboard/tree/main">leaderboard</a>] -->
+          <ul>
+            <!-- <li>Study and understand model initializations and weight + activation dynamics.</li> -->
+            <li>Understand the function of each component of the Transformer.</li>
+            <li>Query a training API to fit a scaling law to project model scaling.</li>
+          </ul>
+        </li>
         <li>
           <a href="https://github.com/stanford-cs336/assignment4-data/tree/main"><b>Assignment 4</b>: Data</a>
           [<a href="https://github.com/stanford-cs336/assignment4-data-leaderboard">leaderboard</a>]
+          <ul>
+            <li>Convert raw Common Crawl dumps into usable pretraining data.</li>
+            <li>Perform filtering and deduplication to improve model performance.</li>
+          </ul>
         </li>
-        <ul>
-          <li>Convert raw Common Crawl dumps into usable pretraining data. </li>
-          <li> Perform filtering and deduplication to improve model performance. </li>
-        </ul>
-        <li><a href="https://github.com/stanford-cs336/assignment5-alignment"><b>Assignment 5</b>: Alignment and Reasoning RL</li></a>
-        <ul>
-          <li> Apply supervised finetuning and reinforcement learning to train LMs to reason when solving math problems. </li>
-          <li>
-            <b><a href="https://github.com/stanford-cs336/assignment5-alignment/blob/main/cs336_spring2025_assignment5_supplement_safety_rlhf.pdf">Optional Part 2</a></b>: implement and apply safety alignment methods such as DPO.
-          </li>
-        </ul>
+        <li>
+          <a href="https://github.com/stanford-cs336/assignment5-alignment"><b>Assignment 5</b>: Alignment and Reasoning RL</a>
+          <ul>
+            <li>Apply supervised finetuning and reinforcement learning to train LMs to reason when solving math problems.</li>
+            <li>
+              <b><a href="https://github.com/stanford-cs336/assignment5-alignment/blob/main/cs336_spring2025_assignment5_supplement_safety_rlhf.pdf">Optional Part 2</a></b>: implement and apply safety alignment methods such as DPO.
+            </li>
+          </ul>
+        </li>
       </ul>
       All (currently tentative) deadlines are listed in the <a href="#schedule">schedule</a>.
 
@@ -427,7 +434,7 @@
           <td> Overview, tokenization (Percy) </td>
           <td> <a href="/spring2025-lectures/?trace=var/traces/lecture_01.json">lecture_01.py</a> </td>
           <td>
-            Assignment 1 <b><font color="green">out</font></b>
+            Assignment 1 <b><span class="status-out">out</span></b>
             <br>
             [<a href="https://github.com/stanford-cs336/assignment1-basics/tree/main">code</a>]
             <br>
@@ -462,9 +469,9 @@
           <td>Tues April 15</td>
           <td>GPUs (Tatsu)</td>
           <td> <a href="https://github.com/stanford-cs336/spring2025-lectures/blob/main/nonexecutable/2025%20Lecture%205%20-%20GPUs.pdf">lecture 5.pdf</a></td>
-          <td>Assignment 1 <b><font color="red">due</font></b>
+          <td>Assignment 1 <b><span class="status-due">due</span></b>
           <br/>
-          Assignment 2 <b><font color="green">out</font></b>
+          Assignment 2 <b><span class="status-out">out</span></b>
           <br>
           [<a href="https://github.com/stanford-cs336/assignment2-systems/tree/main">code</a>]
           <br>
@@ -502,7 +509,7 @@
           <td>
             <!-- Assignment 2 <b><font color="red">due</font></b> -->
             <!-- <br/> -->
-            Assignment 3 <b><font color="green">out</font></b>
+            Assignment 3 <b><span class="status-out">out</span></b>
             <br>
             [<a href="https://github.com/stanford-cs336/assignment3-scaling/tree/main">code</a>]
             <br>
@@ -516,7 +523,7 @@
           <!-- <td> <a href="https://github.com/stanford-cs336/spring2025-lectures/blob/main/nonexecutable/Lecture%209%20-%20Scaling%20laws%20basics.pdf">lecture 9.pdf</a></td> -->
           <td></td>
           <td>
-            Assignment 2 <b><font color="red">due</font></b>
+            Assignment 2 <b><span class="status-due">due</span></b>
           </td>
         </tr>
         <tr>
@@ -532,9 +539,9 @@
           <td>Scaling laws (Tatsu)</td>
           <td> <a href="https://github.com/stanford-cs336/spring2025-lectures/blob/00191bba00d6d64621dc46ccaed9122681413a24/nonexecutable/2025%20Lecture%2011%20-%20Scaling%20details.pdf">lecture 11.pdf</a> </td>
           <td>
-            Assignment 3 <b><font color="red">due</font></b>
+            Assignment 3 <b><span class="status-due">due</span></b>
             <br/>
-            Assignment 4 <b><font color="green">out</font></b>
+            Assignment 4 <b><span class="status-out">out</span></b>
             <br>
             [<a href="https://github.com/stanford-cs336/assignment4-data/tree/main">code</a>]
             <br>
@@ -585,9 +592,9 @@
           <td></td>
           <td></td>
           <td>
-            Assignment 4 <b><font color="red">due</font></b>
+            Assignment 4 <b><span class="status-due">due</span></b>
             <br>
-            Assignment 5 <b><font color="green">out</font></b>
+            Assignment 5 <b><span class="status-out">out</span></b>
             <br>
             [<a href="https://github.com/stanford-cs336/assignment5-alignment">code</a>]
             <br>
@@ -621,12 +628,13 @@
           <td></td>
           <td></td>
           <td>
-            Assignment 5 <b><font color="red">due</font></b>
+            Assignment 5 <b><span class="status-due">due</span></b>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
+  </main>
   <!-- jQuery and Bootstrap -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>

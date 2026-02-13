@@ -79,7 +79,7 @@
       <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand brand" href="index.html">CS336</a>
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation menu">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -97,6 +97,7 @@
         </div>
       </div>
     </nav>
+    <main id="main-content">
     <div id="header" style="text-align:center">
       <a href="https://nlp.stanford.edu/">
         <picture>
@@ -123,7 +124,7 @@
         </picture>
       </a>
       <h1>CS336: Language Modeling from Scratch</h1>
-      <h3>Stanford / Spring 2024</h3>
+      <p class="term-line">Stanford / Spring 2024</p>
     </div>
     <!-- Intro -->
     <div class="container sec" id="intro">
@@ -245,7 +246,8 @@
       </li>
       <li>
         <b>Experience with deep learning and systems optimization</b>
-        <p> A significant part of the course will involve making neural language models run quickly and efficiently on GPUs across multiple machines. We expect students to be able to have a strong familiarity with PyTorch and know basic systems concepts like the memory hierarchy.
+        <p>A significant part of the course will involve making neural language models run quickly and efficiently on GPUs across multiple machines. We expect students to be able to have a strong familiarity with PyTorch and know basic systems concepts like the memory hierarchy.</p>
+      </li>
       <li>
         <b>College Calculus, Linear Algebra</b> (e.g. MATH 51, CME 100) <p>You should be comfortable understanding matrix/vector notation and operations.</p>
       </li>
@@ -270,30 +272,39 @@
       <h3>Assignments</h3>
       <ul>
         <li>
-          <a href="https://github.com/stanford-cs336/spring2024-assignment1-basics"><b>Assignment 1</b>: Basics</a> [<a href="https://github.com/stanford-cs336/spring2024-assignment1-basics-leaderboard">leaderboard</a>]</li>
-        <ul>
-          <li> Implement all of the components (tokenizer, model architecture, optimizer) necessary to train a standard Transformer language model. </li>
-          <li> Train a minimal language model.</li>
-        </ul>
-	      <li><a href="https://github.com/stanford-cs336/spring2024-assignment2-systems"><b>Assignment 2</b>: Systems</a></li>
-	      <ul>
-          <li>Profile and benchmark the model and layers from Assignment 1, and optimize RMSNorm with a custom GPU kernel</li>
-          <li>Build a memory-efficient, distributed version of the Assignment 1 model.</li>
-        </ul>
-        <li><a href="https://github.com/stanford-cs336/spring2024-assignment3-scaling"><b>Assignment 3</b>: Scaling</a></li>
-<ul>
-          <li> Query a training API to fit a scaling law and project model scaling. </li>
-        </ul>
-        <li><a href="https://github.com/stanford-cs336/spring2024-assignment4-data"><b>Assignment 4</b>: Data</a> [<a href="https://github.com/stanford-cs336/spring2024-assignment4-data-leaderboard">leaderboard</a>]</li>
-        <ul>
-          <li> Convert raw Common Crawl dumps into usable pretraining data. </li>
-          <li> Perform filtering and deduplication to improve model performance. </li>
-        </ul>
-        <li><a href="https://github.com/stanford-cs336/spring2024-assignment5-alignment"><b>Assignment 5</b>: Alignment</li></a>
-        <ul>
-          <li> Annotate an instruction-tuning data for the model. </li>
-          <li> Implement and apply RLHF to align the model. </li>
-        </ul>
+          <a href="https://github.com/stanford-cs336/spring2024-assignment1-basics"><b>Assignment 1</b>: Basics</a> [<a href="https://github.com/stanford-cs336/spring2024-assignment1-basics-leaderboard">leaderboard</a>]
+          <ul>
+            <li>Implement all of the components (tokenizer, model architecture, optimizer) necessary to train a standard Transformer language model.</li>
+            <li>Train a minimal language model.</li>
+          </ul>
+        </li>
+        <li>
+          <a href="https://github.com/stanford-cs336/spring2024-assignment2-systems"><b>Assignment 2</b>: Systems</a>
+          <ul>
+            <li>Profile and benchmark the model and layers from Assignment 1, and optimize RMSNorm with a custom GPU kernel.</li>
+            <li>Build a memory-efficient, distributed version of the Assignment 1 model.</li>
+          </ul>
+        </li>
+        <li>
+          <a href="https://github.com/stanford-cs336/spring2024-assignment3-scaling"><b>Assignment 3</b>: Scaling</a>
+          <ul>
+            <li>Query a training API to fit a scaling law and project model scaling.</li>
+          </ul>
+        </li>
+        <li>
+          <a href="https://github.com/stanford-cs336/spring2024-assignment4-data"><b>Assignment 4</b>: Data</a> [<a href="https://github.com/stanford-cs336/spring2024-assignment4-data-leaderboard">leaderboard</a>]
+          <ul>
+            <li>Convert raw Common Crawl dumps into usable pretraining data.</li>
+            <li>Perform filtering and deduplication to improve model performance.</li>
+          </ul>
+        </li>
+        <li>
+          <a href="https://github.com/stanford-cs336/spring2024-assignment5-alignment"><b>Assignment 5</b>: Alignment</a>
+          <ul>
+            <li>Annotate an instruction-tuning data for the model.</li>
+            <li>Implement and apply RLHF to align the model.</li>
+          </ul>
+        </li>
       </ul>
       All deadlines are listed in the <a href="#schedule">schedule</a>.
 
@@ -370,7 +381,7 @@
           <td> Overview, tokenization (Percy) </td>
           <td> <a href="https://github.com/stanford-cs336/spring2024-lectures/blob/main/lecture_01.py">lecture_01.py</a> </td>
           <td>
-            Assignment 1 <b><font color="green">out</font></b>
+            Assignment 1 <b><span class="status-out">out</span></b>
             <br>
             [<a href="https://github.com/stanford-cs336/spring2024-assignment1-basics">code</a>]
             <br>
@@ -409,7 +420,7 @@
           <td> Mon April 15 </td>
           <td>GPUs (Tatsu)</td>
           <td> <a href="https://github.com/stanford-cs336/spring2024-lectures/blob/main/nonexecutable/Lecture%205%20-%20GPUs.pdf">lecture 5.pdf</a></td>
-          <td>Assignment 1 <b><font color="red">due</font></b></td>
+          <td>Assignment 1 <b><span class="status-due">due</span></b></td>
           <td></td>
         </tr>
         <tr>
@@ -417,7 +428,7 @@
           <td>Wed April 17</td>
           <td>Kernels, Triton (Percy)</td>
           <td> <a href="https://github.com/stanford-cs336/spring2024-lectures/blob/main/lecture_06.py">lecture_06.py</a> </td>
-          <td>Assignment 2 <b><font color="green">out</font></b>
+          <td>Assignment 2 <b><span class="status-out">out</span></b>
             <br>
             [<a href="https://github.com/stanford-cs336/spring2024-assignment2-systems">code</a>]
             <br>
@@ -455,9 +466,9 @@
           <td>Scaling laws (Tatsu)</td>
           <td><a href="https://github.com/stanford-cs336/spring2024-lectures/blob/main/nonexecutable/Lecture%2010%20-%20Scaling%20details.pdf">lecture 10.pdf</a></td>
           <td>
-            Assignment 2 <b><font color="red">due</font></b>
+            Assignment 2 <b><span class="status-due">due</span></b>
             <br/>
-            Assignment 3 <b><font color="green">out</font></b>
+            Assignment 3 <b><span class="status-out">out</span></b>
             <br>
             [<a href="https://github.com/stanford-cs336/spring2024-assignment3-scaling">code</a>]
             <br>
@@ -478,7 +489,7 @@
           <td>Wed May 8</td>
           <td>Data (Percy)</td>
           <td> <a href="https://github.com/stanford-cs336/spring2024-lectures/blob/main/lecture_12.py">lecture_12.py</a> </td>
-          <td>Assignment 3 <b><font color="red">due</font></b></td>
+          <td>Assignment 3 <b><span class="status-due">due</span></b></td>
           <td></td>
         </tr>
         <tr>
@@ -487,7 +498,7 @@
           <td></td>
           <td></td>
           <td>
-            Assignment 4 <b><font color="green">out</font></b>
+            Assignment 4 <b><span class="status-out">out</span></b>
             <br>
             [<a href="https://github.com/stanford-cs336/spring2024-assignment4-data">code</a>]
             <br>
@@ -534,7 +545,7 @@
           <td>Mon May 27</td>
           <td>Memorial Day - no classes</td>
           <td></td>
-          <td>Assignment 4 <b><font color="red">due</font></b></td>
+          <td>Assignment 4 <b><span class="status-due">due</span></b></td>
           <td></td>
         </tr>
         <tr>
@@ -543,7 +554,7 @@
           <td>Evals (Tatsu)</td>
           <td> <a href="https://github.com/stanford-cs336/spring2024-lectures/blob/main/nonexecutable/Lecture%2017%20-%20Evals.pdf">lecture 17.pdf</a></td>
           <td>
-            Assignment 5 <b><font color="green">out</font></b>
+            Assignment 5 <b><span class="status-out">out</span></b>
             <br>
             [<a href="https://github.com/stanford-cs336/spring2024-assignment5-alignment">code</a>]
             <br>
@@ -570,6 +581,7 @@
       </tbody>
     </table>
   </div>
+  </main>
   <!-- jQuery and Bootstrap -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>

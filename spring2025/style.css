@@ -32,6 +32,14 @@ h3 {
   font-weight: bold;
 }
 
+.term-line {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
 .lhead {
   font-weight: normal;
   margin-top: 5px;
@@ -165,7 +173,9 @@ h3 {
 }
 
 .bold { font-weight: bold; }
-.red { color: #FF0000; }
+.red { color: #b00020; }
+.status-out { color: #006400; }
+.status-due { color: #b00020; }
 
 /* Navbar color / spacing */
 .navbar-default {

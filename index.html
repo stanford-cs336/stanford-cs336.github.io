@@ -159,6 +159,7 @@
             data-toggle="collapse"
             data-target="#bs-example-navbar-collapse-1"
             aria-expanded="false"
+            aria-label="Toggle navigation menu"
           >
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -177,6 +178,7 @@
         </div>
       </div>
     </nav>
+    <main id="main-content">
     <div id="header" style="text-align: center">
       <div class="logo-row">
         <a href="https://nlp.stanford.edu/">
@@ -208,7 +210,7 @@
         </a>
       </div>
       <h1>CS336: Language Modeling from Scratch</h1>
-      <h3>
+      <p class="term-line">
         Stanford / Spring 2026
         <span
           style="
@@ -259,7 +261,7 @@
             <a href="/spring2024/" style="color: #8c1515">Spring 2024</a>
           </span>
         </span>
-      </h3>
+      </p>
       <noscript>
         <p
           style="
@@ -496,84 +498,85 @@
               >version from 2025</a
             >)
             <!-- [<a href="https://github.com/stanford-cs336/assignment1-basics-leaderboard/tree/master">leaderboard</a>] -->
+            <ul>
+              <li>
+                Implement all of the components (tokenizer, model architecture,
+                optimizer) necessary to train a standard Transformer language
+                model.
+              </li>
+              <li>Train a minimal language model.</li>
+            </ul>
           </li>
-          <ul>
-            <li>
-              Implement all of the components (tokenizer, model architecture,
-              optimizer) necessary to train a standard Transformer language
-              model.
-            </li>
-            <li>Train a minimal language model.</li>
-          </ul>
           <li>
             <b>Assignment 2</b>: Systems (<a
               href="https://github.com/stanford-cs336/assignment2-systems/tree/main"
               >version from 2025</a
             >)
             <!-- [<a href="https://github.com/stanford-cs336/assignment2-systems-leaderboard/tree/main">leaderboard</a>] -->
+            <ul>
+              <li>
+                Profile and benchmark the model and layers from Assignment 1
+                using advanced tools, optimize Attention with your own Triton
+                implementation of FlashAttention2.
+              </li>
+              <li>
+                Build a memory-efficient, distributed version of the Assignment
+                1 model training code.
+              </li>
+            </ul>
           </li>
-          <ul>
-            <li>
-              Profile and benchmark the model and layers from Assignment 1 using
-              advanced tools, optimize Attention with your own Triton
-              implementation of FlashAttention2.
-            </li>
-            <li>
-              Build a memory-efficient, distributed version of the Assignment 1
-              model training code.
-            </li>
-          </ul>
           <li>
             <b>Assignment 3</b>: Scaling (<a
               href="https://github.com/stanford-cs336/assignment3-scaling/tree/main"
               >version from 2025</a
             >)
+            <ul>
+              <!-- <li>Study and understand model initializations and weight + activation dynamics.</li> -->
+              <li>
+                Understand the function of each component of the Transformer.
+              </li>
+              <li>
+                Query a training API to fit a scaling law to project model
+                scaling.
+              </li>
+            </ul>
           </li>
           <!-- [<a href="https://github.com/stanford-cs336/assignment3-scaling-leaderboard/tree/main">leaderboard</a>] -->
-          <ul>
-            <!-- <li>Study and understand model initializations and weight + activation dynamics.</li> -->
-            <li>
-              Understand the function of each component of the Transformer.
-            </li>
-            <li>
-              Query a training API to fit a scaling law to project model
-              scaling.
-            </li>
-          </ul>
           <li>
             <b>Assignment 4</b>: Data (<a
               href="https://github.com/stanford-cs336/assignment4-data/tree/main"
               >version from 2025</a
             >)
             <!-- [<a href="https://github.com/stanford-cs336/assignment4-data-leaderboard">leaderboard</a>] -->
+            <ul>
+              <li>
+                Convert raw Common Crawl dumps into usable pretraining data.
+              </li>
+              <li>
+                Perform filtering and deduplication to improve model
+                performance.
+              </li>
+            </ul>
           </li>
-          <ul>
-            <li>
-              Convert raw Common Crawl dumps into usable pretraining data.
-            </li>
-            <li>
-              Perform filtering and deduplication to improve model performance.
-            </li>
-          </ul>
           <li>
             <b>Assignment 5</b>: Alignment and Reasoning RL (<a
               href="https://github.com/stanford-cs336/assignment5-alignment"
               >version from 2025</a
             >)
+            <ul>
+              <li>
+                Apply supervised finetuning and reinforcement learning to train
+                LMs to reason when solving math problems.
+              </li>
+              <li>
+                <b>Optional Part 2</b>
+                (<a
+                  href="https://github.com/stanford-cs336/assignment5-alignment/blob/main/cs336_spring2025_assignment5_supplement_safety_rlhf.pdf"
+                  >version from 2025</a
+                >): implement and apply safety alignment methods such as DPO.
+              </li>
+            </ul>
           </li>
-          <ul>
-            <li>
-              Apply supervised finetuning and reinforcement learning to train
-              LMs to reason when solving math problems.
-            </li>
-            <li>
-              <b>Optional Part 2</b>
-              (<a
-                href="https://github.com/stanford-cs336/assignment5-alignment/blob/main/cs336_spring2025_assignment5_supplement_safety_rlhf.pdf"
-                >version from 2025</a
-              >): implement and apply safety alignment methods such as DPO.
-            </li>
-          </ul>
         </ul>
         All (currently tentative) deadlines are listed in the
         <a href="#schedule">schedule</a>.
@@ -676,7 +679,7 @@
             <!-- <td> <a href="https://github.com/stanford-cs336/spring2026-lectures/blob/main/lecture_01.py">lecture_01.py</a> </td> -->
             <td></td>
             <td>
-              Assignment 1 <b><font color="green">out</font></b>
+              Assignment 1 <b><span class="status-out">out</span></b>
               <!-- <br>
             [<a href="https://github.com/stanford-cs336/spring2026-assignment1-basics">code</a>]
             <br>
@@ -724,9 +727,9 @@
             <!-- <td> <a href="https://github.com/stanford-cs336/spring2026-lectures/blob/main/lecture_06.py">lecture_06.py</a> </td> -->
             <td></td>
             <td>
-              Assignment 1 <b><font color="red">due</font></b>
+              Assignment 1 <b><span class="status-due">due</span></b>
               <br />
-              Assignment 2 <b><font color="green">out</font></b>
+              Assignment 2 <b><span class="status-out">out</span></b>
               <!-- <br>
             [<a href="https://github.com/stanford-cs336/spring2026-assignment2-systems">code</a>]
             <br>
@@ -764,9 +767,9 @@
             <!-- <td><a href="https://github.com/stanford-cs336/spring2026-lectures/blob/main/nonexecutable/Lecture%2010%20-%20Scaling%20details.pdf">lecture 10.pdf</a></td> -->
             <td></td>
             <td>
-              Assignment 2 <b><font color="red">due</font></b>
+              Assignment 2 <b><span class="status-due">due</span></b>
               <br />
-              Assignment 3 <b><font color="green">out</font></b>
+              Assignment 3 <b><span class="status-out">out</span></b>
               <!-- <br>
             [<a href="https://github.com/stanford-cs336/spring2026-assignment3-scaling">code</a>]
             <br>
@@ -788,9 +791,9 @@
             <!-- <td> <a href="https://github.com/stanford-cs336/spring2026-lectures/blob/main/lecture_12.py">lecture_12.py</a> </td> -->
             <td></td>
             <td>
-              Assignment 3 <b><font color="red">due</font></b>
+              Assignment 3 <b><span class="status-due">due</span></b>
               <br />
-              Assignment 4 <b><font color="green">out</font></b>
+              Assignment 4 <b><span class="status-out">out</span></b>
             </td>
           </tr>
           <tr>
@@ -824,9 +827,9 @@
             <!-- <td> <a href="https://github.com/stanford-cs336/spring2026-lectures/blob/main/nonexecutable/Lecture%2016%20-%20Alignment%20by%20RLHF.pdf">lecture 16.pdf</a></td> -->
             <td></td>
             <td>
-              Assignment 4 <b><font color="red">due</font></b>
+              Assignment 4 <b><span class="status-due">due</span></b>
               <br />
-              Assignment 5 <b><font color="green">out</font></b>
+              Assignment 5 <b><span class="status-out">out</span></b>
             </td>
           </tr>
           <tr>
@@ -858,13 +861,14 @@
             <!-- TODO: verify if there will be guest lecture on june 3 -->
             <td></td>
             <td>
-              Assignment 5 <b><font color="red">due</font></b>
+              Assignment 5 <b><span class="status-due">due</span></b>
             </td>
             <!-- TODO: Should the last assignment be due later? -->
           </tr>
         </tbody>
       </table>
     </div>
+    </main>
     <!-- jQuery and Bootstrap -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
