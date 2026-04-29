@@ -315,7 +315,7 @@ h3 {
     border: none;
     border-bottom: 1px solid #f0f0f0;
     position: relative;
-    padding: 6px 12px 6px 62px;
+    padding: 6px 12px 6px 80px;
   }
 
   #schedule .table td:last-child {
@@ -333,7 +333,7 @@ h3 {
     position: absolute;
     top: 6px;
     left: 12px;
-    width: 52px;
+    width: 68px;
     padding-right: 8px;
     white-space: nowrap;
     color: #666;
