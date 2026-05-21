@@ -27,6 +27,12 @@ h2 {
   color: #8c1515;
 }
 
+.schedule-playlist {
+  color: #333;
+  font-size: 16px;
+  font-weight: 300;
+}
+
 h3 {
   font-size: 20px;
   font-weight: bold;
